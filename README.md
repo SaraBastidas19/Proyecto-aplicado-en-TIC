@@ -1,2 +1,2 @@
-# Proyecto-aplicado-en-TIV
+# Proyecto-aplicado-en-TIC
 Indeapp
