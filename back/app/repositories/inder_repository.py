@@ -108,21 +108,33 @@ class InderRelationalRepository:
             response.append(self.model_as_dict(result))
         return response
 
-    # 6. Crear un nuevo usuario
-    def create_usuario(self, estudiante: dict):
-        estudiante_item = {
-            'usuario_id': estudiante['usuario_id'],
-            'nombre': estudiante['nombre'],
-            'email': estudiante['email'],
-            'tipo_documento': estudiante['tipo_documento'],
-            'numero_documento': estudiante['numero_documento'],
-            'fecha_nacimiento': estudiante['fecha_nacimiento'],
-            'rol_id': estudiante['rol_id']
+    # Crear un nuevo usuario
+    def create_usuario(self, usuario: dict):
+        docente = self.session.query(Docente).filter(Docente.tipo_documento == usuario['tipo_documento'], 
+                                                     Docente.numero_documento == usuario['numero_documento']).first()
+        rol = 'estudiante'
+        if docente is not None:
+            rol = 'docente'
+        rol_object = self.session.query(Rol).filter(Rol.nombre == rol).first()
+            
+        usuario_item = {
+            'usuario_id': usuario['usuario_id'],
+            'nombre': usuario['nombre'],
+            'email': usuario['email'],
+            'tipo_documento': usuario['tipo_documento'],
+            'numero_documento': usuario['numero_documento'],
+            'fecha_nacimiento': usuario['fecha_nacimiento'],
+            'rol_id': rol_object.rol_id
         }
-        estudiante_object = Usuario(**estudiante_item)
-        self.session.add(estudiante_object)
+        usuario_object = Usuario(**usuario_item)
+        self.session.add(usuario_object)
         self.session.commit()
         return {'message': 'El usuario ha sido creado con éxito'}
+    
+    # Get Usuario
+    def get_usuario_by_email(self, email: str):
+        return self.session.query(Usuario).filter(Usuario.email == email).first().as_dict()
+
 
 
 

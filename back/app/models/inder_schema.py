@@ -13,6 +13,8 @@ class CursosResponseModel(BaseModel):
 class DocenteResponseModel(BaseModel):
     docente_id:            int
     nombre:                str
+    tipo_documento:        str
+    numero_documento:      int
     especialidad:          str
 
 class UsuarioResponseModel(BaseModel):

@@ -16,6 +16,12 @@ create table core.rol
 );
 
 INSERT INTO core.rol (rol_id, nombre, descripcion)
+VALUES (1, 'docente', 'dictan el curson');
+
+INSERT INTO core.rol (rol_id, nombre, descripcion)
+VALUES (2, 'estudiante', 'toman las clases');
+
+INSERT INTO core.rol (rol_id, nombre, descripcion)
 VALUES (3, 'administrativo', 'administran la información');
 
 
@@ -25,7 +31,7 @@ create table core.usuarios
     usuario_id          int not null constraint usuarios_pk primary key,
     nombre		    	varchar(100) not null,
     email				varchar(100) not null,
-    contraseña			varchar(100),
+    contrasena			varchar(100),
     tipo_documento		varchar(50) not null,
     numero_documento	int not null,
     fecha_nacimiento	date not null,
@@ -43,11 +49,14 @@ create table core.docentes
 (
     docente_id          int not null constraint docentes_pk primary key,
     nombre		    	varchar(100) not null,
+    tipo_documento		varchar(50) not null,
+    numero_documento	int not null,
     especialidad		varchar(200) not null,
     
     foreign key (nombre) references core.usuarios(nombre)
 );
 
+-- alter table core.docentes add column    numero_documento	int 
 
 -- Tabla: Curso
 create table core.cursos
