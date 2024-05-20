@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer, Numeric, ForeignKey, DateTime, Float
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
@@ -18,11 +18,16 @@ class Usuario(Base):
     usuario_id = Column(Integer, primary_key=True)
     nombre = Column(String(100), nullable=False)
     email = Column(String(100), nullable=False)
-    # contrasena = Column(String(100), nullable=False)
+    contrasena = Column(String(100), nullable=False)
     tipo_documento = Column(String(50), nullable=False)
     numero_documento = Column(Integer, nullable=False)
     fecha_nacimiento = Column(DateTime, nullable=False)
     rol_id = Column(Integer, ForeignKey('core.rol.rol_id'))
+    rol = relationship(Rol, back_populates='usuario')
+    def as_dict(self):
+        result = {attr.key: getattr(object, attr.key) for attr in object.__mapper__.attrs}
+        return {**result, 'rol': getattr(self.rol, 'nombre')}
+
 
 class Docente(Base):
     __tablename__ = 'docentes'
@@ -30,6 +35,8 @@ class Docente(Base):
 
     docente_id = Column(Integer, primary_key=True)
     nombre = Column(String(100), nullable=False)
+    tipo_documento = Column(String(50), nullable=False)
+    numero_documento = Column(Integer, nullable=False)
     especialidad = Column(String(200), nullable=False)
 
 class Curso(Base):

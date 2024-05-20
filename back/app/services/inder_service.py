@@ -1,7 +1,10 @@
 from back.app.repositories.inder_repository import InderRelationalRepository
+from passlib.context import CryptContext
+
 
 class InderService:
     def __init__(self):
+        self.cipher = CryptContext(schemes=['bcrypt'], deprecated=['auto']) #Cifrado strings (hash)
         self.repository = InderRelationalRepository()
 
     # 1. Obtener roles disponibles.
@@ -44,9 +47,19 @@ class InderService:
     def get_all_usuarios(self):
         return self.repository.get_all_usuarios()
     
-    # 10. Crear un nuevo estudiante
-    def create_usuario(self, estudiante: dict):
-        return self.repository.create_usuario(estudiante)
+    # 10. Crear un nuevo usuario
+    def create_usuario(self, usuario: dict):
+        usuario['contrasena'] = self.cipher.hash(usuario['contrasena'])
+        return self.repository.create_usuario(usuario)
+    
+    # Metodo Login
+    def login(self, form_data: dict):
+        usuario = self.repository.get_usuario_by_email(form_data['correo'])
+        if len(usuario.keys()) == 0:
+            return 'No existe un usuario con este correo'
+        if not self.cipher.verify(form_data['contrasena'], usuario['contrasena']):
+            return 'Contraseña Incorrecta'
+        return usuario
 
 
 
