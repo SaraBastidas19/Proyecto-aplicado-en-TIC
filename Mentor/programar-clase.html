@@ -52,7 +52,7 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="inicio.html" class="">Inicio<br></a></li>
-                    <li><a href="courses.html" class="active">Cursos</a></li>
+                    <li><a href="courses.html">Cursos</a></li>
                     <li><a href="trainers.html">Profesores</a></li>
                     <li><a href="events.html">Eventos</a></li>
                     <li><a href="pricing.html">Asistencia</a></li>
@@ -68,91 +68,97 @@
     </header>
 
     <main class="main">
-        <section id="inscription" class="section">
-            <div class="container" data-aos="fade-up">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="section-title text-center">
-                            <h2>Formulario de Inscripción</h2>
-                            <p>Por favor, complete el siguiente formulario para inscribirse en el curso.</p>
+        <div class="container">
+            <h2 class="text-center mb-4">Mis cursos inscritos</h2>
+            <div class="row">
+                <!-- Aquí deberías mostrar los cursos en los que el usuario está inscrito -->
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de natación</h5>
+                            <p class="card-text">Horario: Lunes y Miércoles 4:00 PM - 5:00 PM</p>
                         </div>
-                        <form action="#" method="post" role="form" class="php-email-form">
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <input type="text" name="name" class="form-control" id="name"
-                                        placeholder="Nombre completo" required>
-                                </div>
-                                <div class="col-md-6 form-group mt-3 mt-md-0">
-                                    <select class="form-control" name="document_type" id="document_type" required>
-                                        <option value="">Tipo de Documento</option>
-                                        <option value="TI">Tarjeta de Identidad (TI)</option>
-                                        <option value="CC">Cédula de Ciudadanía (CC)</option>
-                                        <option value="CE">Cédula de Extranjería (CE)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group mt-3">
-                                    <input type="text" class="form-control" name="document_number" id="document_number"
-                                        placeholder="Número de Documento" required>
-                                </div>
-                                <div class="col-md-6 form-group mt-3">
-                                    <input type="number" class="form-control" name="age" id="age" placeholder="Edad"
-                                        required min="5">
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group mt-3">
-                                    <select class="form-control" name="city" id="city" required>
-                                        <option value="">Ciudad de Residencia</option>
-                                        <option value="Medellin">Medellín</option>
-                                        <option value="Bello">Bello</option>
-                                        <option value="Envigado">Envigado</option>
-                                        <option value="Itagui">Itagüí</option>
-                                        <option value="Sabaneta">Sabaneta</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 form-group mt-3">
-                                    <select class="form-control" name="course" id="course" required>
-                                        <option value="">Seleccione el curso</option>
-                                        <option value="natacion">Natación</option>
-                                        <option value="futbol">Fútbol</option>
-                                        <option value="baloncesto">Baloncesto</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="text-center mt-4"><button type="submit">Inscribirse</button></div>
-                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso de fútbol</h5>
+                            <p class="card-text">Horario: Martes y Jueves 3:00 PM - 4:00 PM</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+    
+            <h2 class="text-center mb-4">Programar clase</h2>
+            <!-- Aquí puedes agregar un formulario para seleccionar el curso, día y horario -->
+            <form id="scheduleForm">
+                <div class="mb-3">
+                    <label for="course" class="form-label">Seleccionar curso:</label>
+                    <select id="course" name="course" class="form-select" required>
+                        <option value="">Seleccionar curso</option>
+                        <option value="natacion">Curso de natación</option>
+                        <option value="futbol">Curso de fútbol</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Seleccionar día:</label>
+                    <input type="date" id="date" name="date" class="form-control" min="<?php echo date('Y-m-d');?>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="time" class="form-label">Seleccionar hora:</label>
+                    <select id="time" name="time" class="form-select" required>
+                        <option value="">Seleccionar hora</option>
+                        <!-- Aquí puedes agregar opciones de hora específicas para cada curso -->
+                        <!-- Por ejemplo, para el curso de natación -->
+                        <option value="16:00">4:00 PM - 5:00 PM</option>
+                        <!-- Para el curso de fútbol -->
+                        <option value="15:00">3:00 PM - 4:00 PM</option>
+                    </select>
+                </div>
+                <div id="message" class="alert" style="display: none;"></div>
+                <button type="submit" class="btn btn-primary">Programar</button>
+            </form>
+        </div>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script>
-        const registrationForm = document.querySelector('.php-email-form');
-
-        registrationForm.addEventListener('submit', function (event) {
+        const scheduleForm = document.getElementById('scheduleForm');
+        const message = document.getElementById('message');
+    
+        scheduleForm.addEventListener('submit', function (event) {
             event.preventDefault();
-            // Aquí puedes procesar los datos del formulario
-            // Por ejemplo, enviar una solicitud HTTP a un servidor para almacenar los datos en una base de datos
-            // Después de procesar los datos con éxito, muestra la alerta y redirige a courses.html
-            showSuccessAlert();
-            setTimeout(() => {
-                window.location.href = 'courses.html';
-            }, 3000); // Redirige después de 3 segundos (3000 milisegundos)
+            const formData = new FormData(this);
+            const selectedDate = new Date(formData.get('date'));
+            const today = new Date();
+            const selectedTime = formData.get('time');
+            const currentTime = today.getHours() + ':' + today.getMinutes();
+            const course = formData.get('course');
+    
+            if (selectedDate < today) {
+                message.textContent = 'No puedes seleccionar una fecha pasada.';
+                message.className = 'alert alert-danger';
+                message.style.display = 'block';
+            } else if (selectedDate.getDay() === 0 || selectedDate.getDay() === 6) {
+                message.textContent = 'No hay clases disponibles los fines de semana.';
+                message.className = 'alert alert-danger';
+                message.style.display = 'block';
+            } else if (course === 'natacion' && selectedTime !== '16:00') {
+                message.textContent = 'Solo hay horario disponible de 4:00 PM - 5:00 PM para el curso de natación.';
+                message.className = 'alert alert-danger';
+                message.style.display = 'block';
+            } else if (course === 'futbol' && selectedTime !== '15:00') {
+                message.textContent = 'Solo hay horario disponible de 3:00 PM - 4:00 PM para el curso de fútbol.';
+                message.className = 'alert alert-danger';
+                message.style.display = 'block';
+            } else {
+                // Aquí puedes enviar el formulario o realizar otra acción
+                // Por ejemplo, mostrar un mensaje de éxito
+                message.textContent = 'Clase programada con éxito.';
+                message.className = 'alert alert-success';
+                message.style.display = 'block';
+            }
         });
-
-        function showSuccessAlert() {
-            Swal.fire({
-                icon: 'success',
-                title: '¡Inscripción exitosa!',
-                text: 'Gracias por inscribirte en nuestro curso.',
-                confirmButtonColor: '#5fcf80',
-                confirmButtonText: 'Aceptar'
-            });
-        }
     </script>
     
 

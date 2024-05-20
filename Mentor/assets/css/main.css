@@ -1868,3 +1868,93 @@ section,
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
+/* Calendario */
+.calendar-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.calendar-day {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.calendar-day.present {
+  background-color: green;
+}
+
+.calendar-day.absent {
+  background-color: red;
+}
+
+@media (max-width: 576px) {
+  .calendar-container {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .calendar-day {
+    width: 30px;
+    height: 30px;
+  }
+}
+.calendar-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+#prev-month,
+#next-month {
+  font-size: 18px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.calendar-header {
+  font-size: 24px;
+}
+
+.current-day-circle {
+  display: inline-block;
+  width: 30px; /* Ajusta el tamaño del círculo según tu diseño */
+  height: 30px; /* Ajusta el tamaño del círculo según tu diseño */
+  border-radius: 50%;
+  border: 2px solid var(--accent-color); /* Puedes ajustar el color del borde según tu diseño */
+  text-align: center;
+  line-height: 30px; /* Ajusta la altura del texto dentro del círculo */
+}
+
+/* Estilo para el día actual */
+.calendar-day.current-day {
+  background-color: #5fcf80; /* Cambia el color de fondo para resaltar el día actual */
+  color: #fff; /* Cambia el color del texto para asegurar la legibilidad */
+  position: relative; /* Asegura que el posicionamiento absoluto funcione correctamente */
+}
+
+/* Estilo para el círculo alrededor del día actual */
+.calendar-day.current-day::before {
+  content: ''; /* Agrega un pseudo-elemento para crear el círculo */
+  display: block;
+  width: 30px; /* Ajusta el tamaño del círculo según sea necesario */
+  height: 30px; /* Ajusta el tamaño del círculo según sea necesario */
+  border-radius: 50%; /* Hace que el borde sea redondeado para formar un círculo */
+  background-color: transparent; /* Establece el color de fondo del círculo */
+  border: 2px solid #5fcf80; /* Establece el color y el grosor del borde del círculo */
+  position: absolute; /* Permite posicionar el círculo en relación con el día actual */
+  top: 50%; /* Posiciona el círculo en el centro vertical del día */
+  left: 50%; /* Posiciona el círculo en el centro horizontal del día */
+  transform: translate(-50%, -50%); /* Centra el círculo dentro del día actual */
+  box-sizing: border-box; /* Hace que el tamaño total del círculo incluya el grosor del borde */
+}
+
+
