@@ -38,6 +38,7 @@ class Docente(Base):
     tipo_documento = Column(String(50), nullable=False)
     numero_documento = Column(Integer, nullable=False)
     especialidad = Column(String(200), nullable=False)
+    usuario_id = Column(Integer, ForeignKey('core.usuarios.usuario_id'))
 
 class Curso(Base):
     __tablename__ = 'cursos'

@@ -21,6 +21,7 @@ class UsuarioResponseModel(BaseModel):
     usuario_id:         int
     nombre:             str
     email:              str
+    contrasena:         str
     tipo_documento:     str
     numero_documento:   int
     fecha_nacimiento:   date

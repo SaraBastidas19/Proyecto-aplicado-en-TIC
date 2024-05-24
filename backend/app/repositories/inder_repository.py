@@ -70,11 +70,8 @@ class InderRelationalRepository:
     
     # 6. Crear un nuevo docente
     def create_docente(self, docente: dict):
-        docente_item = {
-            'docente_id': docente['docente_id'],
-            'nombre': docente['nombre'],
-            'especialidad': docente['especialidad']
-        }
+        user = self.session.query(Usuario).filter(Usuario.numero_documento == docente['numero_documento']).first()
+        docente_item = {**docente, 'usuario_id': user.usuario_id if user is not None else None}
         docente_object = Docente(**docente_item)
         self.session.add(docente_object)
         self.session.commit()
@@ -82,11 +79,8 @@ class InderRelationalRepository:
     
     # 7. Actualizar un docente existente
     def update_docente(self, docente: dict, docente_id: int):
-        docente_item = {
-            'docente_id': docente['docente_id'],
-            'nombre': docente['nombre'],
-            'especialidad': docente['especialidad']
-        }
+        user = self.session.query(Usuario).filter(Usuario.numero_documento == docente['numero_documento']).first()
+        docente_item = {**docente, 'usuario_id': user.usuario_id if user is not None else None}
         old_docente = self.session.query(Docente).filter(Docente.docente_id == docente_id).first()
         for key, value in docente_item.items():
             setattr(old_docente, key, value)
