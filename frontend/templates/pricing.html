@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pricing - Mentor Bootstrap Template</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon" />
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="{{ url_for('static', filename='vendor/aos/aos.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}"
+      rel="stylesheet"
+    />
+
+    <!-- Main CSS File -->
+    <link
+      href="{{ url_for('static', filename='css/main.css') }}"
+      rel="stylesheet"
+    />
+
+    <!-- =======================================================
+  * Template Name: Mentor
+  * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
+  * Updated: May 18 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body class="pricing-page">
+    <header id="header" class="header d-flex align-items-center sticky-top">
+      <div
+        class="container-fluid container-xl position-relative d-flex align-items-center"
+      >
+        <a href="/" class="logo d-flex align-items-center me-auto">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="assets/img/logo.png" alt=""> -->
+          <h1 class="sitename">INDEAPP</h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li>
+              <a href="/student-home">Inicio<br /></a>
+            </li>
+            <li><a href="/courses">Cursos</a></li>
+            <li><a href="/trainers">Profesores</a></li>
+            <li><a href="/events">Eventos</a></li>
+            <li><a href="/attendance" class="active">Asistencia</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Page Title -->
+      <div class="page-title" data-aos="fade">
+        <div class="heading">
+          <div class="container">
+            <div class="row d-flex justify-content-center text-center">
+              <div class="col-lg-8">
+                <h1>Asistencia</h1>
+                <p class="mb-0">
+                  La asistencia es una parte fundamental de cualquier curso o
+                  programa educativo. No solo es un registro de quién está
+                  presente o ausente, sino que también es una herramienta para
+                  el seguimiento del progreso y el compromiso de los
+                  participantes. A través de la asistencia, podemos crear un
+                  ambiente de responsabilidad y participación, donde cada
+                  individuo se compromete con su aprendizaje y contribuye al
+                  éxito colectivo del grupo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav class="breadcrumbs">
+          <div class="container">
+            <ol>
+              <li><a href="/">Inicio</a></li>
+              <li class="current">Asistencia</li>
+            </ol>
+          </div>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <!-- Pricing Section -->
+
+      <body>
+        <div class="calendar-navigation">
+          <button id="prev-month">&#60;</button>
+          <div class="calendar-header" id="calendar-header">
+            <!-- Aquí se mostrará el nombre del mes -->
+          </div>
+          <button id="next-month">&#62;</button>
+        </div>
+        <div class="calendar-container" id="calendar">
+          <!-- Aquí se generarán los días de la semana y del calendario -->
+        </div>
+
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            const calendarHeader = document.getElementById("calendar-header");
+            const calendarContainer = document.getElementById("calendar");
+            const prevMonthButton = document.getElementById("prev-month");
+            const nextMonthButton = document.getElementById("next-month");
+            let currentMonth = new Date().getMonth();
+            let currentYear = new Date().getFullYear();
+            const daysOfWeek = [
+              "Dom",
+              "Lun",
+              "Mar",
+              "Mié",
+              "Jue",
+              "Vie",
+              "Sáb",
+            ];
+            const months = [
+              "Ene",
+              "Feb",
+              "Mar",
+              "Abr",
+              "May",
+              "Jun",
+              "Jul",
+              "Ago",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dic",
+            ];
+
+            // Función para generar el calendario
+            function generateCalendar(month, year) {
+              const today = new Date();
+              const firstDayOfMonth = new Date(year, month, 1).getDay(); // Día de la semana del primer día del mes
+              const daysInMonth = new Date(year, month + 1, 0).getDate();
+              const daysInPreviousMonth = new Date(year, month, 0).getDate();
+
+              // Limpiar el calendario anterior
+              calendarContainer.innerHTML = "";
+
+              // Agregar el nombre del mes al encabezado del calendario
+              calendarHeader.textContent = months[month] + " " + year;
+
+              // Agregar los nombres de los días de la semana al calendario
+              daysOfWeek.forEach((dayOfWeek) => {
+                const dayLabel = document.createElement("div");
+                dayLabel.classList.add("calendar-label");
+                dayLabel.textContent = dayOfWeek;
+                calendarContainer.appendChild(dayLabel);
+              });
+
+              // Agregar los días del mes anterior al calendario si el primer día del mes actual no es domingo
+              if (firstDayOfMonth !== 0) {
+                for (let i = firstDayOfMonth - 1; i >= 0; i--) {
+                  const day = document.createElement("div");
+                  day.classList.add("calendar-day");
+                  day.textContent = daysInPreviousMonth - i;
+                  calendarContainer.appendChild(day);
+                }
+              }
+
+              // Generar los días del mes en el calendario
+              for (let i = 1; i <= daysInMonth; i++) {
+                const day = document.createElement("div");
+                day.classList.add("calendar-day");
+                day.textContent = i;
+                if (
+                  year === today.getFullYear() &&
+                  month === today.getMonth() &&
+                  i === today.getDate()
+                ) {
+                  day.classList.add("current-day");
+                }
+                calendarContainer.appendChild(day);
+              }
+
+              // Asignar eventos a los días del calendario
+              const calendarDays = document.querySelectorAll(".calendar-day");
+              calendarDays.forEach((day) => {
+                day.addEventListener("click", function () {
+                  // Alternar entre clases present y absent al hacer clic en un día
+                  if (day.classList.contains("present")) {
+                    day.classList.remove("present");
+                    day.classList.add("absent");
+                  } else {
+                    day.classList.remove("absent");
+                    day.classList.add("present");
+                  }
+                });
+              });
+            }
+
+            // Generar el calendario inicial
+            generateCalendar(currentMonth, currentYear);
+
+            // Navegación entre meses
+            prevMonthButton.addEventListener("click", function () {
+              currentMonth--;
+              if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+              }
+              generateCalendar(currentMonth, currentYear);
+            });
+
+            nextMonthButton.addEventListener("click", function () {
+              currentMonth++;
+              if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+              }
+              generateCalendar(currentMonth, currentYear);
+            });
+
+            // Función para resaltar el día actual
+            function highlightCurrentDay() {
+              const today = new Date();
+              const currentDayElement = document.querySelector(
+                ".calendar-day.current-day"
+              );
+              if (currentDayElement) {
+                currentDayElement.innerHTML = `<div class="current-day-circle">${today.getDate()}</div>`;
+              }
+            }
+
+            // Resaltar el día actual cuando se carga la página
+            highlightCurrentDay();
+          });
+        </script>
+      </body>
+      <!-- /Pricing Section -->
+    </main>
+
+    <footer id="footer" class="footer position-relative">
+      <div class="container footer-top">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6 footer-about">
+            <a href="/" class="logo d-flex align-items-center">
+              <span class="sitename">INDER</span>
+            </a>
+            <div class="footer-contact pt-3">
+              <p>Sede administrativa</p>
+              <p>Horario de atención:</p>
+              <p>
+                Lunes a jueves: 7:30 a. m. a 12:00 p. m. y 1:30 p. m. a 5:00 p.
+                m.
+              </p>
+              <p>Viernes: 7:30 a. m. a 12:00 p. m. y 1:30 p. m a 4:00 p.m.</p>
+              <p class="mt-3">
+                <strong>Teléfono conmutador:</strong>
+                <span>(+57) 604 369 90 00</span>
+              </p>
+            </div>
+            <div class="social-links d-flex mt-4">
+              <a href=""><i class="bi bi-twitter-x"></i></a>
+              <a href=""><i class="bi bi-facebook"></i></a>
+              <a href=""><i class="bi bi-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container copyright text-center mt-4">
+        <p>
+          © <span>Copyright</span> <strong class="px-1 sitename">INDER</strong>
+          <span>All Rights Reserved</span>
+        </p>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you've purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll Top -->
+    <a
+      href="#"
+      id="scroll-top"
+      class="scroll-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/aos/aos.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/purecounter/purecounter_vanilla.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.js') }}"></script>
+
+    <!-- Main JS File -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
